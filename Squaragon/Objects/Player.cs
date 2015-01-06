@@ -14,7 +14,7 @@ namespace Squaragon.Objects
         private float rotationSpeed;
         
         public Player()
-            : base(new Vector2(24f, 24f), new Color(52, 152, 219))
+            : base(new Vector2(16f, 16f), new Color(52, 152, 219))
         {
             RegisterEvent<ButtonDownEvent>(0, ButtonDown);
         }
@@ -62,12 +62,18 @@ namespace Squaragon.Objects
         {
             if (ev.Button == Mouse.Button.Left)
             {
-                Vector2 initialPosition = ev.Position;
+                Mouse.Location = Engine.Resolution / 2f;
+
+                Vector2 delta = Vector2.Zero;
+
                 var arrow = Scene.CreateObject<Arrow>(this, Vector2.Zero);
                 const float lengthDivision = 400f;
                 var listener = RegisterEvent<BeginDrawEvent>(0, e =>
                 {
-                    Vector2 deltaPosition = (Mouse.Location - initialPosition) * new Vector2(-1f, -1f);
+                    delta += Mouse.Location - new Vector2((int)Engine.Resolution.X / 2, (int)Engine.Resolution.Y / 2);
+                    Mouse.Location = Engine.Resolution / 2f;
+
+                    Vector2 deltaPosition = delta * new Vector2(-1f, -1f);
                     float length = deltaPosition.Length;
                     deltaPosition.Length = (length / lengthDivision / (length / lengthDivision + 0.5f));
 
@@ -78,7 +84,7 @@ namespace Squaragon.Objects
                 {
                     listener.Cancel();
                     arrow.Remove();
-                    Vector2 deltaPosition = (Mouse.Location - initialPosition) * new Vector2(-1f, -1f);
+                    Vector2 deltaPosition = delta * new Vector2(-1f, -1f);
                     if (deltaPosition.Length >= 20f)
                     {
                         float length = deltaPosition.Length;
