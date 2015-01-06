@@ -44,7 +44,6 @@ namespace Squaragon.Objects
                 const float lengthDivision = 400f;
                 var listener = RegisterEvent<BeginDrawEvent>(0, e =>
                 {
-
                     Vector2 deltaPosition = (Mouse.Location - initialPosition) * new Vector2(-1f, -1f);
                     float length = deltaPosition.Length;
                     deltaPosition.Length = (length / lengthDivision / (length / lengthDivision + 0.5f));
