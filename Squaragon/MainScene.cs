@@ -18,6 +18,7 @@ namespace Squaragon
         public float Score { get; set; }
         public float Multiplier { get; set; }
         private Texture pixel;
+        public Player Player;
 
         public Rectangle PlayableArea = new Rectangle(new Vector2(540f, 540f) / 2f * -1f, new Vector2(540f, 540f));
 
@@ -28,8 +29,8 @@ namespace Squaragon
 
             Multiplier = 1f;
 
-            CreateObject<Player>(new Vector2(0f, 0f));
-            
+            Player = CreateObject<Player>(new Vector2(0f, 0f));
+
             pixel = (Texture)Engine.ResourceHost.GetContainer("main").Load("Textures/pixel.png");
             RegisterEvent<DrawEvent>(int.MaxValue - 1, Draw);
 
@@ -46,12 +47,15 @@ namespace Squaragon
         {
             if (CurrentMode != null)
                 CurrentMode.TriggerUpdate(ev.DeltaTime);
+
+            Camera.WorldCoord += (Player.WorldCoord - Camera.WorldCoord) * Mathf.Min(1f, ev.DeltaTime * 3f);
         }
 
         private void Draw(DrawEvent ev)
         {
-            ev.RenderTarget.RenderTexture(pixel, Engine.Resolution / 2f * -1f, new Color(127, 140, 141), Engine.Resolution, Vector2.Zero, 0f, new Rectangle(0f, 0f, 1f, 1f));
-            ev.RenderTarget.RenderTexture(pixel, PlayableArea.TopLeft - new Vector2(2f, 2f), Color.Black, PlayableArea.Size + new Vector2(4f, 4f), Vector2.Zero, 0f, new Rectangle(0f, 0f, 1f, 1f));
+            const float outlineSize = 32f;
+            ev.RenderTarget.RenderTexture(pixel, Engine.Resolution / 2f * -1f + Camera.WorldCoord, new Color(127, 140, 141), Engine.Resolution, Vector2.Zero, 0f, new Rectangle(0f, 0f, 1f, 1f));
+            ev.RenderTarget.RenderTexture(pixel, PlayableArea.TopLeft - new Vector2(outlineSize, outlineSize), Color.Black, PlayableArea.Size + new Vector2(outlineSize * 2f, outlineSize * 2f), Vector2.Zero, 0f, new Rectangle(0f, 0f, 1f, 1f));
             ev.RenderTarget.RenderTexture(pixel, PlayableArea.TopLeft, new Color(236, 240, 241), PlayableArea.Size, Vector2.Zero, 0f, new Rectangle(0f, 0f, 1f, 1f));
         }
 

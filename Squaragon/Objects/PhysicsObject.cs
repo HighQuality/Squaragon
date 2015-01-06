@@ -14,7 +14,9 @@ namespace Squaragon.Objects
     {
         public float Radius { get; private set; }
         public Vector2 Velocity;
-        public float Gravity = 400f;
+        public float Gravity = 200f;
+        public double CreationTime = Engine.TimeStamp;
+        public float Age { get { return (float)(Engine.TimeStamp - CreationTime); } }
 
         public PhysicsObject(Vector2 size, Color color)
         {
@@ -33,12 +35,15 @@ namespace Squaragon.Objects
 
             Radius = Mathf.Min(size.X, size.Y) / 2f;
 
+            LocalScale = Vector2.Zero;
+
             RegisterEvent<PhysicsUpdateEvent>(0, PhysicsUpdate);
         }
 
         protected virtual void PhysicsUpdate(PhysicsUpdateEvent ev)
         {
             Velocity.Y += Gravity * ev.DeltaTime;
+            LocalScale = new Vector2(1f, 1f) * Mathf.Min(Age, 1f);
 
             LocalCoord += Velocity * ev.DeltaTime;
         }

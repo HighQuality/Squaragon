@@ -12,10 +12,10 @@ namespace Squaragon.Objects
         private float rotationSpeed;
 
         public Enemy()
-            : base(new Vector2(24f, 24f), new Color(155, 89, 182))
+            : base(new Vector2(20f, 20f), new Color(155, 89, 182))
         {
             rotationSpeed = Engine.RandomFloat() >= 0.5f ? 200f : -200f;
-            Gravity *= 0.25f;
+            Gravity *= 0.2f;
         }
 
         protected override void PhysicsUpdate(PhysicsUpdateEvent ev)
