@@ -10,6 +10,7 @@ namespace Squaragon.Modes
         public MainScene Scene;
         private Action<float> update;
         protected Action onStateChanged;
+        public float Difficulty = 1f;
 
         public Mode(MainScene scene)
         {

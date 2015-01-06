@@ -24,8 +24,32 @@ namespace Squaragon.Modes
 
             spawnEnemy = offset =>
             {
-                Scene.CreateObject<Enemy>(new Vector2(Engine.RandomFloat() * Engine.Resolution.X - Engine.Resolution.X / 2f, -Engine.Resolution.Y / 2f));
-                ev = Engine.InvokeTimed(1f - offset, spawnEnemy);
+                float roll = Engine.RandomFloat();
+
+                if (roll <= .25f)
+                {
+                    // Top
+                    Scene.CreateObject<Enemy>(new Vector2(Engine.RandomFloat() * Engine.Resolution.X - Engine.Resolution.X / 2f, -Engine.Resolution.Y / 2f));
+                }
+                else if (roll <= .5f)
+                {
+                    // Bottom
+                    var enemy = Scene.CreateObject<Enemy>(new Vector2(Engine.RandomFloat() * Engine.Resolution.X - Engine.Resolution.X / 2f, Engine.Resolution.Y / 2f));
+                    enemy.Velocity = new Vector2(Engine.RandomFloat() * 256f, -128f - 256f * Engine.RandomFloat());
+                }
+                else if (roll <= .75f)
+                {
+                    // Left Side
+                    var enemy = Scene.CreateObject<Enemy>(new Vector2(-Engine.Resolution.X / 2f, Engine.RandomFloat() * Engine.Resolution.Y - Engine.Resolution.Y / 2f));
+                    enemy.Velocity = new Vector2(128f, -96f);
+                }
+                else
+                {
+                    // Right Side
+                    var enemy = Scene.CreateObject<Enemy>(new Vector2(Engine.Resolution.X / 2f, Engine.RandomFloat() * Engine.Resolution.Y - Engine.Resolution.Y / 2f));
+                    enemy.Velocity = new Vector2(-128f, -96f);
+                }
+                ev = Engine.InvokeTimed(1f / Difficulty - offset, spawnEnemy);
             };
 
             spawnEnemy(0f);

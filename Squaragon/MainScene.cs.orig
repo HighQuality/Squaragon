@@ -14,9 +14,12 @@ namespace Squaragon
     class MainScene : Scene
     {
         public Mode CurrentMode;
+<<<<<<< HEAD
         private Star star;
+=======
         public float Score { get; set; }
         public float Multiplier { get; set; }
+>>>>>>> 678beea2ab16aa066211994317e698e1d79259ed
 
         public MainScene()
             : base("Game")
@@ -31,11 +34,13 @@ namespace Squaragon
 
             RegisterEvent<PhysicsUpdateEvent>(0, PhysicsUpdate);
 
+<<<<<<< HEAD
             CreateObject<Star>(new Vector2((Engine.RandomFloat() - 0.5f) * Engine.Resolution.X, (Engine.RandomFloat() - 0.5f) * Engine.Resolution.Y));
-
+=======
             Engine.InvokeTimed(1f, AddScore);
             
             new ScoreElement(Interface, new Vector2(Engine.Resolution.X / 2f, 32f));
+>>>>>>> 678beea2ab16aa066211994317e698e1d79259ed
         }
 
         private void PhysicsUpdate(PhysicsUpdateEvent ev)
