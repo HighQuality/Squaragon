@@ -31,7 +31,7 @@ namespace Squaragon
 
             RegisterEvent<PhysicsUpdateEvent>(0, PhysicsUpdate);
 
-            CreateObject<Star>(new Vector2((Engine.RandomFloat() - 0.5f) * Engine.Resolution.X, (Engine.RandomFloat() - 0.5f) * Engine.Resolution.Y));
+            CreateObject<Star>(new Vector2((Engine.RandomFloat() - 0.5f) * Engine.Resolution.X * 0.9f, (Engine.RandomFloat() - 0.5f) * Engine.Resolution.Y * 0.9f));
 
             Engine.InvokeTimed(1f, AddScore);
             
