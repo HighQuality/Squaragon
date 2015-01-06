@@ -12,10 +12,8 @@ namespace Squaragon.Objects
     [Resource(ContainerName = "main", Filename = "Textures/pixel.png", Key = "pixel")]
     class PhysicsObject : GameObject
     {
-        public SpriteComponent Sprite;
-
+        public float Radius { get; private set; }
         public Vector2 Velocity;
-
         public float Gravity = 400f;
 
         public PhysicsObject(Vector2 size, Color color)
@@ -23,15 +21,17 @@ namespace Squaragon.Objects
             const float outlineThickness = 1f;
             var pixel = Resources.GetTexture("pixel");
 
-            Sprite = SpriteComponent.RegisterOn(this, pixel);
-            Sprite.Scale = size + new Vector2(outlineThickness * 2f, outlineThickness * 2f);
-            Sprite.Origin = new Vector2(0.5f, 0.5f);
-            Sprite.Color = new Color(44, 62, 80);
+            var outline = SpriteComponent.RegisterOn(this, pixel);
+            outline.Scale = size + new Vector2(outlineThickness * 2f, outlineThickness * 2f);
+            outline.Origin = new Vector2(0.5f, 0.5f);
+            outline.Color = new Color(44, 62, 80);
 
-            Sprite = SpriteComponent.RegisterOn(this, pixel);
-            Sprite.Scale = size;
-            Sprite.Origin = new Vector2(0.5f, 0.5f);
-            Sprite.Color = color; // new Color(52, 152, 219);
+            var sprite = SpriteComponent.RegisterOn(this, pixel);
+            sprite.Scale = size;
+            sprite.Origin = new Vector2(0.5f, 0.5f);
+            sprite.Color = color; // new Color(52, 152, 219);
+
+            Radius = Mathf.Min(size.X, size.Y) / 2f;
 
             RegisterEvent<PhysicsUpdateEvent>(0, PhysicsUpdate);
         }

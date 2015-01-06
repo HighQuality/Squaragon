@@ -12,7 +12,7 @@ namespace Squaragon.Objects
     class Player : PhysicsObject
     {
         private float rotationSpeed;
-
+        
         public Player()
             : base(new Vector2(24f, 24f), new Color(52, 152, 219))
         {
@@ -25,6 +25,11 @@ namespace Squaragon.Objects
 
             foreach (var enemy in Scene.EnumerateObjects<Enemy>())
             {
+                var distanceTo = (enemy.WorldCoord - WorldCoord).Length - Radius - enemy.Radius;
+                if (distanceTo <= 0f)
+                {
+                    Remove();
+                }
             }
 
             base.PhysicsUpdate(ev);
