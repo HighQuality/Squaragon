@@ -23,6 +23,29 @@ namespace Squaragon.Objects
         {
             LocalRotation += Angle.FromDegree(rotationSpeed * ev.DeltaTime);
 
+            #region Bounce
+            if (WorldCoord.X < -Engine.Resolution.X / 2)
+            {
+                WorldCoord = new Vector2(-Engine.Resolution.X / 2, WorldCoord.Y);
+                Velocity.X = Math.Abs(-Velocity.X);
+            }
+            if (WorldCoord.Y < -Engine.Resolution.Y / 2)
+            {
+                WorldCoord = new Vector2(WorldCoord.X, -Engine.Resolution.Y / 2);
+                Velocity.Y = Math.Abs(-Velocity.Y);
+            }
+            if (WorldCoord.X > Engine.Resolution.X / 2)
+            {
+                WorldCoord = new Vector2(Engine.Resolution.X / 2, WorldCoord.Y);
+                Velocity.X = -Math.Abs(Velocity.X);
+            }
+            if (WorldCoord.Y > Engine.Resolution.Y / 2)
+            {
+                WorldCoord = new Vector2(WorldCoord.X, Engine.Resolution.Y / 2);
+                Velocity.Y = -Math.Abs(Velocity.Y);
+            } 
+            #endregion
+
             foreach (var enemy in Scene.EnumerateObjects<Enemy>())
             {
                 var distanceTo = (enemy.WorldCoord - WorldCoord).Length - Radius - enemy.Radius;
