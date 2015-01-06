@@ -12,7 +12,6 @@ namespace Squaragon.Objects
     class Arrow : GameObject
     {
         const float thickness = 2f;
-        private float lineLength = 0f;
         private Node right, left;
 
         public Arrow()
