@@ -7,7 +7,7 @@ using Cog.Modules.EventHost;
 
 namespace Squaragon.Objects
 {
-    class Enemy : PhysicsObject
+    class Enemy : PhysicsObject, IPlayerCollision
     {
         private float rotationSpeed;
 
@@ -28,6 +28,11 @@ namespace Squaragon.Objects
             }
 
             base.PhysicsUpdate(ev);
+        }
+
+        public void OnCollisionWithPlayer(Player player)
+        {
+            player.Remove();
         }
     }
 }

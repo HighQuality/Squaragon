@@ -11,13 +11,15 @@ using Cog.Modules.Resources;
 namespace Squaragon.Objects
 {
     [Resource(ContainerName = "main", Filename = "Textures/happystar.png", Key = "star")]
-    class Star : GameObject
+    class Star : GameObject, IPlayerCollision
     {
-        public float Radius = 10f;
+        public float Radius { get; set; }
         private float offset;
 
         public Star()
         {
+            Radius = 10f;
+
             WorldCoord = new Vector2((int)WorldCoord.X, (int)WorldCoord.Y);
             var star = Resources.GetTexture("star");
             var main = SpriteComponent.RegisterOn(this, star);
@@ -38,6 +40,11 @@ namespace Squaragon.Objects
         {
             LocalRotation = Angle.FromDegree((Mathf.Sin((float)Engine.TimeStamp * 4f + offset)) * 45f);
             LocalScale = Vector2.One * (.75f + (Mathf.Sin((float)Engine.TimeStamp * 2f + offset) + 1f) / 2f * .25f);
+        }
+
+        public void OnCollisionWithPlayer(Player player)
+        {
+            Remove();
         }
     }
 }

@@ -48,6 +48,7 @@
     <Compile Include="Modes\StandardMode.cs" />
     <Compile Include="Objects\Arrow.cs" />
     <Compile Include="Objects\Enemy.cs" />
+    <Compile Include="Objects\IPlayerCollision.cs" />
     <Compile Include="Objects\Player.cs" />
     <Compile Include="Objects\PhysicsObject.cs" />
     <Compile Include="Objects\Star.cs" />

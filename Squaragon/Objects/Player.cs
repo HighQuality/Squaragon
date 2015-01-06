@@ -46,24 +46,15 @@ namespace Squaragon.Objects
             } 
             #endregion
 
-            foreach (var enemy in Scene.EnumerateObjects<Enemy>())
+            foreach (var enemy in Scene.EnumerateObjects<IPlayerCollision>())
             {
                 var distanceTo = (enemy.WorldCoord - WorldCoord).Length - Radius - enemy.Radius;
                 if (distanceTo <= 0f)
                 {
-                    Remove();
+                    enemy.OnCollisionWithPlayer(this);
                 }
             }
-
-            foreach (var star in Scene.EnumerateObjects<Star>())
-            {
-                var distanceTo = (star.WorldCoord - WorldCoord).Length - Radius - star.Radius;
-                if (distanceTo <= 0f)
-                {
-                    star.Remove();
-                }
-            }
-
+            
             base.PhysicsUpdate(ev);
         }
 
