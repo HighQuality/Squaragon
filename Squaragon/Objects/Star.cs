@@ -17,8 +17,6 @@ namespace Squaragon.Objects
         public float Radius { get; set; }
         private float offset;
 
-        private Vector2 Velocity = new Vector2();
-
         public Star()
         {
             Radius = 10f;
@@ -28,7 +26,7 @@ namespace Squaragon.Objects
             var main = SpriteComponent.RegisterOn(this, star);
             main.Color = Color.Yellow;
             RegisterEvent<PhysicsUpdateEvent>(0, PhysicsUpdate);
-
+            
             OnRemoved += Star_OnRemoved;
 
             offset = Engine.RandomFloat()*200f;
@@ -36,7 +34,7 @@ namespace Squaragon.Objects
 
         void Star_OnRemoved()
         {
-            Scene.CreateObject<Star>(new Vector2((Engine.RandomFloat() - 0.5f) * Engine.Resolution.X, (Engine.RandomFloat() - 0.5f) * Engine.Resolution.Y));
+            Scene.CreateObject<Star>(Program.Scene.RandomizePlayablePosition());
         }
 
         void PhysicsUpdate(PhysicsUpdateEvent ev)
@@ -44,40 +42,14 @@ namespace Squaragon.Objects
             var player = Scene.EnumerateObjects<Player>().OrderBy(o => (o.WorldCoord - WorldCoord).Length).FirstOrDefault();
             if (player != null)
             {
-                if ((player.WorldCoord - WorldCoord).Length < 100f)
+                if ((player.WorldCoord - WorldCoord).Length < 64f)
                 {
-                    Velocity += (player.WorldCoord - WorldCoord) * 15f * ev.DeltaTime;
+                    LocalCoord += (player.WorldCoord - WorldCoord).Unit * 200f * ev.DeltaTime;
                 }
             }
             
-            Velocity *= Mathf.Max(0f, 1f - ev.DeltaTime);
-            LocalCoord += Velocity * ev.DeltaTime;
-
             LocalRotation = Angle.FromDegree((Mathf.Sin((float)Engine.TimeStamp * 4f + offset)) * 45f);
             LocalScale = Vector2.One * (.75f + (Mathf.Sin((float)Engine.TimeStamp * 2f + offset) + 1f) / 2f * .25f);
-
-            #region Bounce
-            if (WorldCoord.X < -Engine.Resolution.X / 2)
-            {
-                WorldCoord = new Vector2(-Engine.Resolution.X / 2, WorldCoord.Y);
-                Velocity.X = Math.Abs(-Velocity.X);
-            }
-            if (WorldCoord.Y < -Engine.Resolution.Y / 2)
-            {
-                WorldCoord = new Vector2(WorldCoord.X, -Engine.Resolution.Y / 2);
-                Velocity.Y = Math.Abs(-Velocity.Y);
-            }
-            if (WorldCoord.X > Engine.Resolution.X / 2)
-            {
-                WorldCoord = new Vector2(Engine.Resolution.X / 2, WorldCoord.Y);
-                Velocity.X = -Math.Abs(Velocity.X);
-            }
-            if (WorldCoord.Y > Engine.Resolution.Y / 2)
-            {
-                WorldCoord = new Vector2(WorldCoord.X, Engine.Resolution.Y / 2);
-                Velocity.Y = -Math.Abs(Velocity.Y);
-            }
-            #endregion
         }
 
         public void OnCollisionWithPlayer(Player player)

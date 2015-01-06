@@ -24,24 +24,24 @@ namespace Squaragon.Objects
             LocalRotation += Angle.FromDegree(rotationSpeed * ev.DeltaTime);
 
             #region Bounce
-            if (WorldCoord.X < -Engine.Resolution.X / 2)
+            if (WorldCoord.X < Program.Scene.PlayableArea.Left)
             {
-                WorldCoord = new Vector2(-Engine.Resolution.X / 2, WorldCoord.Y);
+                WorldCoord = new Vector2(Program.Scene.PlayableArea.Left, WorldCoord.Y);
                 Velocity.X = Math.Abs(-Velocity.X);
             }
-            if (WorldCoord.Y < -Engine.Resolution.Y / 2)
+            if (WorldCoord.Y < Program.Scene.PlayableArea.Top)
             {
-                WorldCoord = new Vector2(WorldCoord.X, -Engine.Resolution.Y / 2);
+                WorldCoord = new Vector2(WorldCoord.X, Program.Scene.PlayableArea.Top);
                 Velocity.Y = Math.Abs(-Velocity.Y);
             }
-            if (WorldCoord.X > Engine.Resolution.X / 2)
+            if (WorldCoord.X > Program.Scene.PlayableArea.Right)
             {
-                WorldCoord = new Vector2(Engine.Resolution.X / 2, WorldCoord.Y);
+                WorldCoord = new Vector2(Program.Scene.PlayableArea.Right, WorldCoord.Y);
                 Velocity.X = -Math.Abs(Velocity.X);
             }
-            if (WorldCoord.Y > Engine.Resolution.Y / 2)
+            if (WorldCoord.Y > Program.Scene.PlayableArea.Bottom)
             {
-                WorldCoord = new Vector2(WorldCoord.X, Engine.Resolution.Y / 2);
+                WorldCoord = new Vector2(WorldCoord.X, Program.Scene.PlayableArea.Bottom);
                 Velocity.Y = -Math.Abs(Velocity.Y);
             } 
             #endregion
