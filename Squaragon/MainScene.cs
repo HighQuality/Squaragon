@@ -13,6 +13,7 @@ namespace Squaragon
     class MainScene : Scene
     {
         public Mode CurrentMode;
+        private Star star;
 
         public MainScene()
             : base("Game")
@@ -24,6 +25,8 @@ namespace Squaragon
             BackgroundColor = new Color(236, 240, 241);
 
             RegisterEvent<PhysicsUpdateEvent>(0, PhysicsUpdate);
+
+            CreateObject<Star>(new Vector2((Engine.RandomFloat() - 0.5f) * Engine.Resolution.X, (Engine.RandomFloat() - 0.5f) * Engine.Resolution.Y));
         }
 
         private void PhysicsUpdate(PhysicsUpdateEvent ev)

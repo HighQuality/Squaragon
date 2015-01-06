@@ -14,7 +14,7 @@ namespace Squaragon.Objects
         private float rotationSpeed;
         
         public Player()
-            : base(new Vector2(24f, 24f), new Color(52, 152, 219))
+            : base(new Vector2(16f, 16f), new Color(52, 152, 219))
         {
             RegisterEvent<ButtonDownEvent>(0, ButtonDown);
         }
@@ -52,6 +52,15 @@ namespace Squaragon.Objects
                 if (distanceTo <= 0f)
                 {
                     Remove();
+                }
+            }
+
+            foreach (var star in Scene.EnumerateObjects<Star>())
+            {
+                var distanceTo = (star.WorldCoord - WorldCoord).Length - Radius - star.Radius;
+                if (distanceTo <= 0f)
+                {
+                    star.Remove();
                 }
             }
 
