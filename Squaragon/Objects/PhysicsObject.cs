@@ -16,9 +16,18 @@ namespace Squaragon.Objects
         public Vector2 Velocity;
         public float Gravity = 200f;
         public double CreationTime = Engine.TimeStamp;
+        Color color;
         public float Age { get { return (float)(Engine.TimeStamp - CreationTime); } }
 
         public PhysicsObject(Vector2 size, Color color)
+        {
+            SetSize(size);
+            LocalScale = Vector2.Zero;
+            this.color = color;
+            RegisterEvent<PhysicsUpdateEvent>(0, PhysicsUpdate);
+        }
+
+        protected void SetSize(Vector2 size)
         {
             const float outlineThickness = 1f;
             var pixel = Resources.GetTexture("pixel");
@@ -34,10 +43,6 @@ namespace Squaragon.Objects
             sprite.Color = color; // new Color(52, 152, 219);
 
             Radius = Mathf.Min(size.X, size.Y) / 2f;
-
-            LocalScale = Vector2.Zero;
-
-            RegisterEvent<PhysicsUpdateEvent>(0, PhysicsUpdate);
         }
 
         protected virtual void PhysicsUpdate(PhysicsUpdateEvent ev)

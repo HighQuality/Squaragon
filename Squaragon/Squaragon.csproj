@@ -47,9 +47,12 @@
     <Compile Include="Modes\Mode.cs" />
     <Compile Include="Modes\FlyingBlocksMode.cs" />
     <Compile Include="Modes\StandardMode.cs" />
+    <Compile Include="Modes\WallAttackMode.cs" />
     <Compile Include="Objects\Arrow.cs" />
     <Compile Include="Objects\Enemy.cs" />
+    <Compile Include="Objects\EnemyAttackingWall.cs" />
     <Compile Include="Objects\EnemyBlock.cs" />
+    <Compile Include="Objects\EnemyGenericBlock.cs" />
     <Compile Include="Objects\IPlayerCollision.cs" />
     <Compile Include="Objects\Player.cs" />
     <Compile Include="Objects\PhysicsObject.cs" />

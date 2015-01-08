@@ -10,7 +10,7 @@ namespace Squaragon.Modes
 {
     class FlyingBlocksMode : Mode
     {
-
+        float baseSpawnTime = 1.5f;
         public FlyingBlocksMode(MainScene scene)
             : base(scene)
         {
@@ -50,7 +50,7 @@ namespace Squaragon.Modes
                     var enemy = Scene.CreateObject<EnemyBlock>(new Vector2(Engine.Resolution.X + 100, Engine.RandomFloat() * Scene.PlayableArea.Height + Scene.PlayableArea.Top));
                     enemy.Velocity = new Vector2(-128 - 10 * Difficulty, 0f);
                 }
-                ev = Engine.InvokeTimed(1.2f * (float)Math.Pow(0.95f, Difficulty) - offset, spawnEnemy);
+                ev = Engine.InvokeTimed(baseSpawnTime * (float)Math.Pow(0.95f, Difficulty) - offset, spawnEnemy);
             };
 
             spawnEnemy(0f);

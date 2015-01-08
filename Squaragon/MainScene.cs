@@ -25,7 +25,7 @@ namespace Squaragon
         public MainScene()
             : base("Game")
         {
-            CurrentMode = new FlyingBlocksMode(this);
+            CurrentMode = new WallAttackMode(this);
 
             Multiplier = 1f;
 

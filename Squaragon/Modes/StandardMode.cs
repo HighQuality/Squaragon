@@ -10,7 +10,6 @@ namespace Squaragon.Modes
 {
     class StandardMode : Mode
     {
-
         public StandardMode(MainScene scene)
             : base(scene)
         {
