@@ -32,10 +32,10 @@ namespace Squaragon.Modes
                 var first = Scene.CreateObject<EnemyAttackingWall>(attackPoint + Vector2.Up.Rotate(Angle.FromDegree(angle)) * 1500);
                 var second = Scene.CreateObject<EnemyAttackingWall>(attackPoint + Vector2.Up.Rotate(Angle.FromDegree(angle - 180)) * 1500);
                 first.Start(new Vector2(40, 2000), Vector2.Down.Rotate(Angle.FromDegree(angle)) * (200 + 10 * Difficulty), 0f,
-                    attackPoint, 90 * (float)Math.Pow(0.95f, Difficulty));
+                    attackPoint, 20 + 90 * (float)Math.Pow(0.95f, Difficulty));
                 second.Start(new Vector2(40, 2000), Vector2.Down.Rotate(Angle.FromDegree(angle - 180)) * (200 + 10 * Difficulty), 0f, 
-                    attackPoint, 90 * (float)Math.Pow(0.95f, Difficulty));
-                ev = Engine.InvokeTimed(baseSpawnTime * (float)Math.Pow(0.91f, Difficulty) - offset, spawnEnemy);
+                    attackPoint, 20 + 90 * (float)Math.Pow(0.95f, Difficulty));
+                ev = Engine.InvokeTimed(baseSpawnTime * (float)Math.Pow(0.95f, Difficulty) - offset, spawnEnemy);
             };
 
             spawnEnemy(0f);

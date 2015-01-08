@@ -16,13 +16,14 @@ namespace Squaragon.Objects
         public Vector2 Velocity;
         public float Gravity = 200f;
         public double CreationTime = Engine.TimeStamp;
+        Color color;
         public float Age { get { return (float)(Engine.TimeStamp - CreationTime); } }
 
         public PhysicsObject(Vector2 size, Color color)
         {
             SetSize(size);
             LocalScale = Vector2.Zero;
-
+            this.color = color;
             RegisterEvent<PhysicsUpdateEvent>(0, PhysicsUpdate);
         }
 
@@ -30,7 +31,6 @@ namespace Squaragon.Objects
         {
             const float outlineThickness = 1f;
             var pixel = Resources.GetTexture("pixel");
-            var color = new Color(52, 152, 219);
 
             var outline = SpriteComponent.RegisterOn(this, pixel);
             outline.Scale = size + new Vector2(outlineThickness * 2f, outlineThickness * 2f);
