@@ -62,16 +62,26 @@ namespace Squaragon.Objects
         {
             if (ev.Button == Mouse.Button.Left)
             {
-                Mouse.Location = Engine.Resolution / 2f;
+                const bool lockCursor = false;
 
                 Vector2 delta = Vector2.Zero;
+                if (lockCursor)
+                    Mouse.Location = Engine.Resolution / 2f;
+                Vector2 initialPosition = Mouse.Location;
 
                 var arrow = Scene.CreateObject<Arrow>(this, Vector2.Zero);
                 const float lengthDivision = 400f;
                 var listener = RegisterEvent<BeginDrawEvent>(0, e =>
                 {
-                    delta += Mouse.Location - new Vector2((int)Engine.Resolution.X / 2, (int)Engine.Resolution.Y / 2);
-                    Mouse.Location = Engine.Resolution / 2f;
+                    if (lockCursor)
+                    {
+                        delta += Mouse.Location - new Vector2((int)Engine.Resolution.X / 2, (int)Engine.Resolution.Y / 2);
+                        Mouse.Location = Engine.Resolution / 2f;
+                    }
+                    else
+                    {
+                        delta = Mouse.Location - initialPosition;
+                    }
 
                     Vector2 deltaPosition = delta * new Vector2(-1f, -1f);
                     float length = deltaPosition.Length;
