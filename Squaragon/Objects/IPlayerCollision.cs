@@ -11,5 +11,6 @@ namespace Squaragon.Objects
         Vector2 WorldCoord { get; }
         float Radius { get; }
         void OnCollisionWithPlayer(Player player);
+        bool CheckCollisionWith(PhysicsObject other);
     }
 }

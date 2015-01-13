@@ -52,6 +52,11 @@ namespace Squaragon.Objects
             LocalScale = Vector2.One * (.75f + (Mathf.Sin((float)Engine.TimeStamp * 2f + offset) + 1f) / 2f * .25f);
         }
 
+        public bool CheckCollisionWith(PhysicsObject other)
+        {
+            return ((WorldCoord - other.WorldCoord).Length - other.Radius - Radius) <= 0f;
+        }
+
         public void OnCollisionWithPlayer(Player player)
         {
             Program.Scene.Multiplier++;
