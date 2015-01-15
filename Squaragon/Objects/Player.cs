@@ -21,7 +21,6 @@ namespace Squaragon.Objects
 
         protected override void PhysicsUpdate(PhysicsUpdateEvent ev)
         {
-            Console.WriteLine(Engine.FrameTime * 1000f);
             LocalRotation += Angle.FromDegree(rotationSpeed * ev.DeltaTime);
 
             #region Bounce

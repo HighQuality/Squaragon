@@ -25,7 +25,7 @@ namespace Squaragon
         public MainScene()
             : base("Game")
         {
-            CurrentMode = new StandardMode(this);
+            CurrentMode = new SlowBlocksMode(this);
 
             Multiplier = 1f;
 
