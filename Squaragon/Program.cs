@@ -17,8 +17,9 @@ namespace Squaragon
 
         static void Main(string[] args)
         {
-            Engine.Initialize<SfmlRenderer, SfmlAudioModule>();
-
+            Engine.Initialize<D3DRenderer.D3DRenderer, SfmlAudioModule>();
+            Engine.DesiredResolution = new Vector2(720f, 720f);
+            
             Engine.EventHost.RegisterEvent<InitializeEvent>(0, Initialize);
 
             Engine.StartGame("Squaragon", WindowStyle.Default);
@@ -27,8 +28,6 @@ namespace Squaragon
         static void Initialize(InitializeEvent ev)
         {
             Engine.ResourceHost.LoadDictionary("main", "Resources");
-
-            Engine.DesiredResolution = new Vector2(720f, 720f);
 
             Scene = Engine.SceneHost.CreateGlobal<MainScene>();
             Engine.SceneHost.Push(Scene);

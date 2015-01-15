@@ -21,6 +21,7 @@ namespace Squaragon.Objects
 
         protected override void PhysicsUpdate(PhysicsUpdateEvent ev)
         {
+            Console.WriteLine(Engine.FrameTime * 1000f);
             LocalRotation += Angle.FromDegree(rotationSpeed * ev.DeltaTime);
 
             #region Bounce
@@ -51,7 +52,8 @@ namespace Squaragon.Objects
                 var distanceTo = (enemy.WorldCoord - WorldCoord).Length - Radius - enemy.Radius;
                 if (distanceTo <= 0f)
                 {
-                    enemy.OnCollisionWithPlayer(this);
+                    if (enemy.CheckCollisionWith(this))
+                        enemy.OnCollisionWithPlayer(this);
                 }
             }
             

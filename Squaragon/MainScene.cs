@@ -31,6 +31,12 @@ namespace Squaragon
 
             Player = CreateObject<Player>(new Vector2(0f, 0f));
 
+            RegisterEvent<KeyDownEvent>((int)Keyboard.Key.R, 0, ev =>
+                {
+                    Player.Remove();
+                    Player = CreateObject<Player>(new Vector2(0f, 0f));
+                });
+
             pixel = (Texture)Engine.ResourceHost.GetContainer("main").Load("Textures/pixel.png");
             RegisterEvent<DrawEvent>(int.MaxValue - 1, Draw);
 
@@ -39,7 +45,7 @@ namespace Squaragon
             CreateObject<Star>(RandomizePlayablePosition());
 
             Engine.InvokeTimed(1f, AddScore);
-            
+
             new ScoreElement(Interface, new Vector2(Engine.Resolution.X / 2f, 32f));
         }
 
@@ -47,16 +53,15 @@ namespace Squaragon
         {
             if (CurrentMode != null)
                 CurrentMode.TriggerUpdate(ev.DeltaTime);
-
             Camera.WorldCoord += (Player.WorldCoord - Camera.WorldCoord) * Mathf.Min(1f, ev.DeltaTime * 3f);
         }
 
         private void Draw(DrawEvent ev)
         {
             const float outlineSize = 32f;
-            ev.RenderTarget.RenderTexture(pixel, Engine.Resolution / 2f * -1f + Camera.WorldCoord, new Color(127, 140, 141), Engine.Resolution, Vector2.Zero, 0f, new Rectangle(0f, 0f, 1f, 1f));
-            ev.RenderTarget.RenderTexture(pixel, PlayableArea.TopLeft - new Vector2(outlineSize, outlineSize), Color.Black, PlayableArea.Size + new Vector2(outlineSize * 2f, outlineSize * 2f), Vector2.Zero, 0f, new Rectangle(0f, 0f, 1f, 1f));
-            ev.RenderTarget.RenderTexture(pixel, PlayableArea.TopLeft, new Color(236, 240, 241), PlayableArea.Size, Vector2.Zero, 0f, new Rectangle(0f, 0f, 1f, 1f));
+            ev.RenderTarget.DrawTexture(pixel, Engine.Resolution / 2f * -1f + Camera.WorldCoord, new Color(127, 140, 141), Engine.Resolution, Vector2.Zero, 0f, new Rectangle(0f, 0f, 1f, 1f));
+            ev.RenderTarget.DrawTexture(pixel, PlayableArea.TopLeft - new Vector2(outlineSize, outlineSize), Color.Black, PlayableArea.Size + new Vector2(outlineSize * 2f, outlineSize * 2f), Vector2.Zero, 0f, new Rectangle(0f, 0f, 1f, 1f));
+            ev.RenderTarget.DrawTexture(pixel, PlayableArea.TopLeft, new Color(236, 240, 241), PlayableArea.Size, Vector2.Zero, 0f, new Rectangle(0f, 0f, 1f, 1f));
         }
 
         private void AddScore(float offset)

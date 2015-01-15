@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.22310.1
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Squaragon", "Squaragon\Squaragon.csproj", "{2AD7B72B-24B3-4384-8BEE-170137F9AFAA}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SfmlAudio", "..\Cog2D\SfmlAudio\SfmlAudio.csproj", "{82BE15E4-8DDE-41E0-9CA1-A7D2375590EB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SfmlRenderer", "..\Cog2D\SfmlRenderer\SfmlRenderer.csproj", "{084372EB-5096-4AE6-BFED-4B10637CD216}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D3DRenderer", "..\Cog2D\D3DRenderer\D3DRenderer.csproj", "{B126D090-A28F-44AD-899F-AEA07F2EE95E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +71,14 @@ Global
 		{084372EB-5096-4AE6-BFED-4B10637CD216}.Release|x64.Build.0 = Release|x64
 		{084372EB-5096-4AE6-BFED-4B10637CD216}.Release|x86.ActiveCfg = Release|x86
 		{084372EB-5096-4AE6-BFED-4B10637CD216}.Release|x86.Build.0 = Release|x86
+		{B126D090-A28F-44AD-899F-AEA07F2EE95E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B126D090-A28F-44AD-899F-AEA07F2EE95E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B126D090-A28F-44AD-899F-AEA07F2EE95E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B126D090-A28F-44AD-899F-AEA07F2EE95E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B126D090-A28F-44AD-899F-AEA07F2EE95E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B126D090-A28F-44AD-899F-AEA07F2EE95E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B126D090-A28F-44AD-899F-AEA07F2EE95E}.Release|x64.ActiveCfg = Release|Any CPU
+		{B126D090-A28F-44AD-899F-AEA07F2EE95E}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

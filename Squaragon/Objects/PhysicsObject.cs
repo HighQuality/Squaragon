@@ -16,33 +16,36 @@ namespace Squaragon.Objects
         public Vector2 Velocity;
         public float Gravity = 200f;
         public double CreationTime = Engine.TimeStamp;
-        Color color;
         public float Age { get { return (float)(Engine.TimeStamp - CreationTime); } }
+        const float outlineThickness = 1f;
+        public SpriteComponent Sprite,
+            Outline;
 
         public PhysicsObject(Vector2 size, Color color)
         {
+            var pixel = Resources.GetTexture("pixel");
+
+            Outline = SpriteComponent.RegisterOn(this, pixel);
+            Outline.Origin = new Vector2(0.5f, 0.5f);
+            Outline.Color = new Color(44, 62, 80);
+
+            Sprite = SpriteComponent.RegisterOn(this, pixel);
+            Sprite.Origin = new Vector2(0.5f, 0.5f);
+            Sprite.Color = color; // new Color(52, 152, 219);
+
             SetSize(size);
             LocalScale = Vector2.Zero;
-            this.color = color;
+
             RegisterEvent<PhysicsUpdateEvent>(0, PhysicsUpdate);
         }
 
         protected void SetSize(Vector2 size)
         {
-            const float outlineThickness = 1f;
-            var pixel = Resources.GetTexture("pixel");
+            Outline.Scale = size + new Vector2(outlineThickness * 2f, outlineThickness * 2f);
+            Sprite.Scale = size;
 
-            var outline = SpriteComponent.RegisterOn(this, pixel);
-            outline.Scale = size + new Vector2(outlineThickness * 2f, outlineThickness * 2f);
-            outline.Origin = new Vector2(0.5f, 0.5f);
-            outline.Color = new Color(44, 62, 80);
-
-            var sprite = SpriteComponent.RegisterOn(this, pixel);
-            sprite.Scale = size;
-            sprite.Origin = new Vector2(0.5f, 0.5f);
-            sprite.Color = color; // new Color(52, 152, 219);
-
-            Radius = Mathf.Min(size.X, size.Y) / 2f;
+            this.Size = size;
+            Radius = (Size * 0.5f).Length;
         }
 
         protected virtual void PhysicsUpdate(PhysicsUpdateEvent ev)
@@ -51,6 +54,63 @@ namespace Squaragon.Objects
             LocalScale = new Vector2(1f, 1f) * Mathf.Min(Age, 1f);
 
             LocalCoord += Velocity * ev.DeltaTime;
+        }
+
+        public bool CheckCollisionWith(PhysicsObject other)
+        {
+            Vector2 x1, x2,
+                y1, y2,
+                
+                ox1, ox2,
+                oy1, oy2;
+
+            var pos = WorldCoord;
+            var oPos = other.WorldCoord;
+            var rot = WorldRotation;
+            var oRot = other.WorldRotation;
+
+            x1 = pos + new Vector2(-Size.X * .5f, -Size.Y * .5f).Rotate(rot);
+            x2 = pos + new Vector2(Size.X * .5f, -Size.Y * .5f).Rotate(rot);
+            y1 = pos + new Vector2(-Size.X * .5f, Size.Y * .5f).Rotate(rot);
+            y2 = pos + new Vector2(Size.X * .5f, Size.Y * .5f).Rotate(rot);
+
+            ox1 = oPos + new Vector2(-other.Size.X * .5f, -other.Size.Y * .5f).Rotate(oRot);
+            ox2 = oPos + new Vector2(other.Size.X * .5f, -other.Size.Y * .5f).Rotate(oRot);
+            oy1 = oPos + new Vector2(-other.Size.X * .5f, other.Size.Y * .5f).Rotate(oRot);
+            oy2 = oPos + new Vector2(other.Size.X * .5f, other.Size.Y * .5f).Rotate(oRot);
+
+            Line[] myLines = new Line[4] {
+                new Line { FirstPoint = x1, SecondPoint = x2 },
+                new Line { FirstPoint = y1, SecondPoint = y2 },
+                new Line { FirstPoint = x2, SecondPoint = y2 },
+                new Line { FirstPoint = x1, SecondPoint = y1 }
+            };
+            Line[] otherLines = new Line[4] {
+                new Line { FirstPoint = ox1, SecondPoint = ox2 },
+                new Line { FirstPoint = oy1, SecondPoint = oy2 },
+                new Line { FirstPoint = ox2, SecondPoint = oy2 },
+                new Line { FirstPoint = ox1, SecondPoint = oy1 }
+            };
+            for (int i = 0; i < 4; i++)
+                for (int j = 0; j < 4; j++)
+                    if (LineCollision(myLines[i].FirstPoint, myLines[i].SecondPoint, otherLines[j].FirstPoint, otherLines[j].SecondPoint))
+                        return true;
+            return false;
+        }
+
+        public bool LineCollision(Vector2 a, Vector2 b, Vector2 c, Vector2 d)
+        {
+            float denominator = ((b.X - a.X) * (d.Y - c.Y)) - ((b.Y - a.Y) * (d.X - c.X));
+            float numerator1 = ((a.Y - c.Y) * (d.X - c.X)) - ((a.X - c.X) * (d.Y - c.Y));
+            float numerator2 = ((a.Y - c.Y) * (b.X - a.X)) - ((a.X - c.X) * (b.Y - a.Y));
+
+            // Detect coincident lines (has a problem, read below)
+            if (denominator == 0) return numerator1 == 0 && numerator2 == 0;
+
+            float r = numerator1 / denominator;
+            float s = numerator2 / denominator;
+
+            return (r >= 0 && r <= 1) && (s >= 0 && s <= 1);
         }
     }
 }
