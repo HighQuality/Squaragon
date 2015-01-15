@@ -11,6 +11,7 @@ namespace Squaragon.Objects
     {
         Vector2 attackPoint;
         float minDistance;
+        float velocityMultiplier;
         public EnemyAttackingWall()
             :base()
         {
@@ -26,11 +27,16 @@ namespace Squaragon.Objects
 
         protected override void PhysicsUpdate(PhysicsUpdateEvent ev)
         {
-            if ((attackPoint - WorldCoord).Length < minDistance)
+            float distanceToGoal = (attackPoint - WorldCoord).Length;
+            if (distanceToGoal < minDistance)
             {
                 Remove();
             }
+            velocityMultiplier = Math.Min(1, distanceToGoal / 200);
+            Vector2 tempVelocity = Velocity;
+            Velocity *= velocityMultiplier;
             base.PhysicsUpdate(ev);
+            Velocity = tempVelocity;
         }
     }
 }
