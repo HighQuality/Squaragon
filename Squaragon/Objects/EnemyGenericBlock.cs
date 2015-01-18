@@ -1,4 +1,5 @@
 ﻿using Cog;
+using Cog.Modules.EventHost;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,17 @@ namespace Squaragon.Objects
             Gravity = gravity;
             LocalRotation = velocity.Angle;
         }
+
+        protected override void PhysicsUpdate(PhysicsUpdateEvent ev)
+        {
+            if (WorldCoord.Length >= 1080f)
+            {
+                Remove();
+            }
+
+            base.PhysicsUpdate(ev);
+        }
+
 
         public void OnCollisionWithPlayer(Player player)
         {

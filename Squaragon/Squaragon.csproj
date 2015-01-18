@@ -46,6 +46,7 @@
     <Compile Include="MainScene.cs" />
     <Compile Include="Modes\Mode.cs" />
     <Compile Include="Modes\FlyingBlocksMode.cs" />
+    <Compile Include="Modes\SlowBlocksMode.cs" />
     <Compile Include="Modes\StandardMode.cs" />
     <Compile Include="Modes\WallAttackMode.cs" />
     <Compile Include="Objects\Arrow.cs" />
@@ -83,10 +84,6 @@
     <ProjectReference Include="..\..\Cog2D\SfmlRenderer\SfmlRenderer.csproj">
       <Project>{084372eb-5096-4ae6-bfed-4b10637cd216}</Project>
       <Name>SfmlRenderer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Cog2D\XnaRenderer\XnaRenderer.csproj">
-      <Project>{c06e9138-2ea5-4dbe-933b-a1036cce391d}</Project>
-      <Name>XnaRenderer</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
