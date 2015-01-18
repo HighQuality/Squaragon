@@ -17,7 +17,7 @@ namespace Squaragon.Objects
         public float Gravity = 200f;
         public double CreationTime = Engine.TimeStamp;
         public float Age { get { return (float)(Engine.TimeStamp - CreationTime); } }
-        const float outlineThickness = 1f;
+        const float outlineThickness = 2f;
         public SpriteComponent Sprite,
             Outline;
 
@@ -27,7 +27,7 @@ namespace Squaragon.Objects
 
             Outline = SpriteComponent.RegisterOn(this, pixel);
             Outline.Origin = new Vector2(0.5f, 0.5f);
-            Outline.Color = new Color(44, 62, 80);
+            Outline.Color = Color.White; //new Color(44, 62, 80);
 
             Sprite = SpriteComponent.RegisterOn(this, pixel);
             Sprite.Origin = new Vector2(0.5f, 0.5f);

@@ -46,7 +46,7 @@ namespace Squaragon
 
             Engine.InvokeTimed(1f, AddScore);
 
-            new ScoreElement(Interface, new Vector2(Engine.Resolution.X / 2f, 32f));
+            new ScoreElement(Interface, new Vector2(Engine.Resolution.X / 2f, 64f));
         }
 
         private void PhysicsUpdate(PhysicsUpdateEvent ev)
@@ -59,9 +59,9 @@ namespace Squaragon
         private void Draw(DrawEvent ev)
         {
             const float outlineSize = 32f;
-            ev.RenderTarget.DrawTexture(pixel, Engine.Resolution / 2f * -1f + Camera.WorldCoord, new Color(127, 140, 141), Engine.Resolution, Vector2.Zero, 0f, new Rectangle(0f, 0f, 1f, 1f));
-            ev.RenderTarget.DrawTexture(pixel, PlayableArea.TopLeft - new Vector2(outlineSize, outlineSize), Color.Black, PlayableArea.Size + new Vector2(outlineSize * 2f, outlineSize * 2f), Vector2.Zero, 0f, new Rectangle(0f, 0f, 1f, 1f));
-            ev.RenderTarget.DrawTexture(pixel, PlayableArea.TopLeft, new Color(236, 240, 241), PlayableArea.Size, Vector2.Zero, 0f, new Rectangle(0f, 0f, 1f, 1f));
+            ev.RenderTarget.DrawTexture(pixel, Engine.Resolution / 2f * -1f + Camera.WorldCoord, new Color(48, 48, 48), Engine.Resolution, Vector2.Zero, 0f, new Rectangle(0f, 0f, 1f, 1f));
+            ev.RenderTarget.DrawTexture(pixel, PlayableArea.TopLeft - new Vector2(outlineSize, outlineSize), new Color(236, 240, 241), PlayableArea.Size + new Vector2(outlineSize * 2f, outlineSize * 2f), Vector2.Zero, 0f, new Rectangle(0f, 0f, 1f, 1f));
+            ev.RenderTarget.DrawTexture(pixel, PlayableArea.TopLeft, new Color(127, 140, 141), PlayableArea.Size, Vector2.Zero, 0f, new Rectangle(0f, 0f, 1f, 1f));
         }
 
         private void AddScore(float offset)

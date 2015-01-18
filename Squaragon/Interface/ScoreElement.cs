@@ -20,9 +20,9 @@ namespace Squaragon.Interface
 
         public override void OnDraw(IRenderTarget target, Vector2 drawPosition)
         {
-            Font.DrawString(target, string.Format("Score: {0}", Program.Scene.Score), Font.RenderSize, Color.Black, drawPosition + Vector2.One, HAlign.Center, VAlign.Top);
-            //Font.DrawString(target, string.Format("Score: 0"), 16f, Color.White, drawPosition, HAlign.Left, VAlign.Top);
-
+            Font.DrawString(target, string.Format("Score: {0}", Program.Scene.Score), Font.RenderSize, new Color(64, 64, 64), drawPosition + new Vector2(0f, 4f), HAlign.Center, VAlign.Center);
+            Font.DrawString(target, string.Format("Score: {0}", Program.Scene.Score), Font.RenderSize + 4f, Color.White, drawPosition + new Vector2(0f, 0f), HAlign.Center, VAlign.Center);
+            
             base.OnDraw(target, drawPosition);
         }
     }
