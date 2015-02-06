@@ -14,6 +14,12 @@ namespace Squaragon
 {
     class MainScene : Scene
     {
+        public enum GameModes
+        {
+            Arcade,
+            Adventure
+        };
+
         public Mode CurrentMode;
         public float Score { get; set; }
         public float Multiplier { get; set; }
@@ -26,17 +32,37 @@ namespace Squaragon
         public MainScene()
             : base("Game")
         {
-            CurrentMode = new StandardMode(this);
 
+        }
+
+        public void Initialize(GameModes mode)
+        {
+            switch(mode)
+            {
+                case GameModes.Arcade:
+                    CurrentMode = new StandardMode(this);
+                    new ScoreElement(Interface, new Vector2(Engine.Resolution.X / 2f, 64f));
+                    new DifficultyElement(Interface, new Vector2(20f, 20f));
+                    break;
+
+                case GameModes.Adventure:
+                    PlayableArea = new Rectangle(new Vector2(-200f, -200f), new Vector2(2000f, 600f));
+                    CurrentMode = new AdventureMode(this);
+                    break;
+
+                default:
+                    throw new NotImplementedException();
+            }
+            
             Multiplier = 1f;
 
             Player = CreateObject<Player>(new Vector2(0f, 0f));
 
             RegisterEvent<KeyDownEvent>((int)Keyboard.Key.R, 0, ev =>
-                {
-                    Player.Remove();
-                    Player = CreateObject<Player>(new Vector2(0f, 0f));
-                });
+            {
+                Player.Remove();
+                Player = CreateObject<Player>(new Vector2(0f, 0f));
+            });
 
             pixel = (Texture)Engine.ResourceHost.GetContainer("main").Load("Textures/pixel.png");
             grid = (Texture)Engine.ResourceHost.GetContainer("main").Load("Textures/grid.png");
@@ -47,9 +73,6 @@ namespace Squaragon
             CreateObject<Star>(RandomizePlayablePosition());
 
             Engine.InvokeTimed(1f, AddScore);
-
-            new ScoreElement(Interface, new Vector2(Engine.Resolution.X / 2f, 64f));
-            new DifficultyElement(Interface, new Vector2(20f, 20f));
         }
 
         private void PhysicsUpdate(PhysicsUpdateEvent ev)

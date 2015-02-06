@@ -45,12 +45,14 @@
     <Compile Include="Interface\DifficultyElement.cs" />
     <Compile Include="Interface\ScoreElement.cs" />
     <Compile Include="MainScene.cs" />
+    <Compile Include="Modes\AdventureMode.cs" />
     <Compile Include="Modes\Mode.cs" />
     <Compile Include="Modes\FlyingBlocksMode.cs" />
     <Compile Include="Modes\SlowBlocksMode.cs" />
     <Compile Include="Modes\StandardMode.cs" />
     <Compile Include="Modes\WallAttackMode.cs" />
     <Compile Include="Objects\Arrow.cs" />
+    <Compile Include="Objects\CollisionLine.cs" />
     <Compile Include="Objects\Enemy.cs" />
     <Compile Include="Objects\EnemyAttackingWall.cs" />
     <Compile Include="Objects\EnemyBlock.cs" />

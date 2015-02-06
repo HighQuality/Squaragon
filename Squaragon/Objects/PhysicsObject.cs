@@ -58,6 +58,7 @@ namespace Squaragon.Objects
 
         public bool CheckCollisionWith(PhysicsObject other)
         {
+            //TODO: Move collisioncheck to Line class.
             Vector2 x1, x2,
                 y1, y2,
                 

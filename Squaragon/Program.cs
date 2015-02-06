@@ -30,6 +30,7 @@ namespace Squaragon
             Engine.ResourceHost.LoadDictionary("main", "Resources");
 
             Scene = Engine.SceneHost.CreateGlobal<MainScene>();
+            Scene.Initialize(MainScene.GameModes.Adventure);
             Engine.SceneHost.Push(Scene);
         }
     }
