@@ -14,7 +14,7 @@ namespace Squaragon.Objects
         private float rotationSpeed;
         
         public Player()
-            : base(new Vector2(12f, 12f), new Color(52, 152, 219))
+            : base(new Vector2(4f, 4f), new Color(52, 152, 219))
         {
             RegisterEvent<ButtonDownEvent>(0, ButtonDown);
         }

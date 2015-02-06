@@ -13,7 +13,7 @@ namespace Squaragon.Modes
         public SlowBlocksMode(MainScene scene)
             : base(scene)
         {
-            Difficulty = 1;
+            Difficulty = 10;
             EnterUpdate();
         }
 
@@ -32,22 +32,22 @@ namespace Squaragon.Modes
             {
                 const float spawnDistance = 32f;
                 EnemyGenericBlock enemy;
-                if (direction == Vector2.Up)
+                if (direction == Vector2.Up) //down -> up
                 {
                     enemy = Scene.CreateObject<EnemyGenericBlock>(new Vector2((Engine.RandomFloat()-0.5f) * Engine.Resolution.X, -Engine.Resolution.Y / 2f - spawnDistance));
                     enemy.Velocity = new Vector2(0f, 64f * Mathf.Pow(1.05f, Difficulty));
                 }
-                else if(direction == Vector2.Right)
+                else if(direction == Vector2.Right) //left -> right
                 {
                     enemy = Scene.CreateObject<EnemyGenericBlock>(new Vector2(-Engine.Resolution.X - spawnDistance, (Engine.RandomFloat() - 0.5f)*Engine.Resolution.Y));
                     enemy.Velocity = new Vector2(64f * Mathf.Pow(1.05f, Difficulty), 0f);
                 }
-                else if (direction == Vector2.Down)
+                else if (direction == Vector2.Down) //up -> down
                 {
                     enemy = Scene.CreateObject<EnemyGenericBlock>(new Vector2((Engine.RandomFloat() - 0.5f) * Engine.Resolution.X, +Engine.Resolution.Y / 2f + spawnDistance));
                     enemy.Velocity = new Vector2(0f, -64f * Mathf.Pow(1.05f, Difficulty));
                 }
-                else
+                else      //right -> left
                 {
                     enemy = Scene.CreateObject<EnemyGenericBlock>(new Vector2(Engine.Resolution.X + spawnDistance, (Engine.RandomFloat() - 0.5f) * Engine.Resolution.Y));
                     enemy.Velocity = new Vector2(-64f * Mathf.Pow(1.05f, Difficulty), 0f);

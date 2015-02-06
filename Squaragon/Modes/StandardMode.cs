@@ -13,6 +13,7 @@ namespace Squaragon.Modes
         public StandardMode(MainScene scene)
             : base(scene)
         {
+            Difficulty = 2;
             EnterUpdate();
         }
 
@@ -50,7 +51,7 @@ namespace Squaragon.Modes
                     var enemy = Scene.CreateObject<Enemy>(new Vector2(Engine.Resolution.X / 2f + spawnDistance, Engine.RandomFloat() * Engine.Resolution.Y - Engine.Resolution.Y / 2f));
                     enemy.Velocity = new Vector2(-96f, -64f);
                 }
-                ev = Engine.InvokeTimed(1f / Difficulty - offset, spawnEnemy);
+                ev = Engine.InvokeTimed(1.3f / Difficulty - offset, spawnEnemy);
             };
 
             spawnEnemy(0f);

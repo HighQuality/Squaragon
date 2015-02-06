@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interface\DifficultyElement.cs" />
     <Compile Include="Interface\ScoreElement.cs" />
     <Compile Include="MainScene.cs" />
     <Compile Include="Modes\Mode.cs" />

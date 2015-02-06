@@ -25,7 +25,7 @@ namespace Squaragon
         public MainScene()
             : base("Game")
         {
-            CurrentMode = new SlowBlocksMode(this);
+            CurrentMode = new StandardMode(this);
 
             Multiplier = 1f;
 
@@ -47,6 +47,7 @@ namespace Squaragon
             Engine.InvokeTimed(1f, AddScore);
 
             new ScoreElement(Interface, new Vector2(Engine.Resolution.X / 2f, 64f));
+            new DifficultyElement(Interface, new Vector2(20f, 20f));
         }
 
         private void PhysicsUpdate(PhysicsUpdateEvent ev)
@@ -54,6 +55,7 @@ namespace Squaragon
             if (CurrentMode != null)
                 CurrentMode.TriggerUpdate(ev.DeltaTime);
             Camera.WorldCoord += (Player.WorldCoord - Camera.WorldCoord) * Mathf.Min(1f, ev.DeltaTime * 3f);
+            CurrentMode.Difficulty += 0.08f * ev.DeltaTime;
         }
 
         private void Draw(DrawEvent ev)
