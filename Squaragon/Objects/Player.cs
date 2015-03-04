@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Cog.Modules.EventHost;
+using Squaragon.Objects;
 
 namespace Squaragon.Objects
 {

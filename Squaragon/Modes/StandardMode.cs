@@ -1,5 +1,6 @@
 ﻿using Cog;
 using Cog.Modules.Content;
+using Squaragon.Interface;
 using Squaragon.Objects;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,9 @@ namespace Squaragon.Modes
         {
             Difficulty = 2;
             EnterUpdate();
+            new ScoreElement(Program.Scene.Interface, new Vector2(Engine.Resolution.X / 2f, 64f));
+            new DifficultyElement(Program.Scene.Interface, new Vector2(20f, 20f));
+            Program.Scene.Lost = false;
         }
 
         private void EnterUpdate()

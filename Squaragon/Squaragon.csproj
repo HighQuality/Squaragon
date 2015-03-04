@@ -43,9 +43,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interface\DifficultyElement.cs" />
+    <Compile Include="Interface\LostElement.cs" />
+    <Compile Include="Interface\MainMenuElement.cs" />
     <Compile Include="Interface\ScoreElement.cs" />
     <Compile Include="MainScene.cs" />
     <Compile Include="Modes\AdventureMode.cs" />
+    <Compile Include="Modes\LostMode.cs" />
+    <Compile Include="Modes\MenuMode.cs" />
     <Compile Include="Modes\Mode.cs" />
     <Compile Include="Modes\FlyingBlocksMode.cs" />
     <Compile Include="Modes\SlowBlocksMode.cs" />

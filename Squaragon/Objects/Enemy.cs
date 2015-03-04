@@ -33,6 +33,7 @@ namespace Squaragon.Objects
         public void OnCollisionWithPlayer(Player player)
         {
             player.Remove();
+            Program.Scene.Lost = true;
         }
     }
 }
