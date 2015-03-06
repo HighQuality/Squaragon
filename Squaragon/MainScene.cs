@@ -22,7 +22,22 @@ namespace Squaragon
         GlslShader gaussianBlurX, gaussianBlurY, saveColors;
 
         RenderTexture bloomRender, mainRender;
-        public Mode CurrentMode;
+
+        Mode _currentMode;
+        public Mode CurrentMode
+        {
+            get
+            {
+                return _currentMode;
+            }
+
+            set
+            {
+                if (_currentMode != null)
+                    _currentMode.ChangeState();
+                _currentMode = value;
+            }
+        }
         public float Score { get; set; }
         public float Multiplier { get; set; }
         private Texture pixel,
@@ -141,6 +156,7 @@ namespace Squaragon
             {
                 case GameModes.Arcade:
                     CurrentMode = new MenuMode(this);
+                    Lost = false;
                     break;
 
                 case GameModes.Adventure:
@@ -155,11 +171,11 @@ namespace Squaragon
             Multiplier = 1f;
 
 
-            RegisterEvent<KeyDownEvent>((int)Keyboard.Key.R, 0, ev =>
+            /*RegisterEvent<KeyDownEvent>((int)Keyboard.Key.R, 0, ev =>
             {
                 Player.Remove();
                 Player = CreateObject<Player>(new Vector2(0f, 0f));
-            });
+            });*/
 
             pixel = (Texture)Engine.ResourceHost.GetContainer("main").Load("Textures/pixel.png");
             grid = (Texture)Engine.ResourceHost.GetContainer("main").Load("Textures/grid.png");
@@ -186,7 +202,9 @@ namespace Squaragon
                 Camera.WorldCoord = new Vector2(0, 0);
             }
             if (Lost && !(CurrentMode is LostMode))
+            {
                 CurrentMode = new LostMode(this);
+            }
         }
 
         private void Draw(DrawEvent ev)

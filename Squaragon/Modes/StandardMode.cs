@@ -18,7 +18,6 @@ namespace Squaragon.Modes
             EnterUpdate();
             new ScoreElement(Program.Scene.Interface, new Vector2(Engine.Resolution.X / 2f, 64f));
             new DifficultyElement(Program.Scene.Interface, new Vector2(20f, 20f));
-            Program.Scene.Lost = false;
         }
 
         private void EnterUpdate()

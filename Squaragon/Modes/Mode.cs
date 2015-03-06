@@ -32,5 +32,11 @@ namespace Squaragon.Modes
             }
             update = state;
         }
+
+        public void ChangeState()
+        {
+            if (onStateChanged != null)
+                onStateChanged();
+        }
     }
 }

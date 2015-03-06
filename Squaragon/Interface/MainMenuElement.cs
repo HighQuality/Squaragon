@@ -14,11 +14,12 @@ namespace Squaragon.Interface
     class MainMenuElement : InterfaceElement
     {
         BitmapFont font;
+        EventListener<ButtonDownEvent> ev;
         public MainMenuElement(InterfaceElement parent, Vector2 location)
             :base(parent, location)
         {
-            RegisterEvent<ButtonDownEvent>(0, ButtonDown);
-
+            ev = RegisterEvent<ButtonDownEvent>(0, ButtonDown);
+            Program.Scene.Lost = false;
             font = (BitmapFont)Engine.ResourceHost.GetContainer("main").Load("Fonts/Alpha Quadrant.fnt");
         }
 
@@ -28,15 +29,14 @@ namespace Squaragon.Interface
             {
                 Program.Scene.CurrentMode = new StandardMode(Program.Scene);
                 Program.Scene.Player = Program.Scene.CreateObject<Player>(new Vector2(0f, 0f));
-                DoRemove = true;
                 Remove();
-                
+                this.ev.Cancel();
             }
         }
         public override void OnDraw(IRenderTarget target, Vector2 drawPosition)
         {
             font.DrawString(target, "SQUARAGON",
-                100, Color.Black, drawPosition, HAlign.Center, VAlign.Center);
+                70, Color.Black, drawPosition, HAlign.Center, VAlign.Center);
             font.DrawString(target, "Press any mouse button to Start!",
                 30, Color.Red, drawPosition + new Vector2(0, 100), HAlign.Center, VAlign.Center);
         }

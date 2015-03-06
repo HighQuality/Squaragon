@@ -14,10 +14,15 @@ namespace Squaragon.Modes
 {
     class MenuMode : Mode
     {
+        MainMenuElement element;
         public MenuMode(MainScene scene)
             : base(scene)
         {
-            new MainMenuElement(Program.Scene.Interface, new Vector2(Engine.Resolution.X / 2f, Engine.Resolution.Y / 2f));
+            element = new MainMenuElement(Program.Scene.Interface, new Vector2(Engine.Resolution.X / 2f, Engine.Resolution.Y / 2f));
+            onStateChanged = () =>
+            {
+                element.Remove();
+            };
         }
     }
 }
