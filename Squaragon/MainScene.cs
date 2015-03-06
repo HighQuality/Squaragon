@@ -42,7 +42,7 @@ namespace Squaragon
         public void Initialize(GameModes mode)
         {
             #region SaveColors
-            saveColors = Engine.Renderer.LoadGlslShader(
+            /*saveColors = Engine.Renderer.LoadGlslShader(
                             @"// Vertex Shader
 
             void main()
@@ -133,7 +133,7 @@ namespace Squaragon
 	            gl_Color += texture2D(texture, vec2(gl_TexCoord[0].x, gl_TexCoord[0].y + 2.0 * BLUR_SIZE)) * 0.12;
 	            gl_Color += texture2D(texture, vec2(gl_TexCoord[0].x, gl_TexCoord[0].y + BLUR_SIZE)) * 0.15;
             }
-            ");
+            ");*/
             #endregion
 
             bloomRender = Engine.Renderer.CreateRenderTexture((int)Engine.Resolution.X / 4, (int)Engine.Resolution.Y / 4);
